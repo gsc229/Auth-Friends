@@ -28,25 +28,18 @@ const Login = props => {
         props.history.push('/protected');
         console.log('Login.js aWA .post res', res);
       })
-      .catch(err => console.log('Login.js post err: ', err));
+      .catch(err => {
+        alert(err.response.data.error);
+        console.log('Login.js post err: ', err.response);
+      });
   };
 
   return (
     <div className='login-container'>
       <h1>Login</h1>
       <form onSubmit={login}>
-        <input
-          type='text'
-          name='username'
-          value={credentials.username}
-          onChange={handleChange}
-        />
-        <input
-          type='password'
-          name='password'
-          value={credentials.password}
-          onChange={handleChange}
-        />
+        <input type='text' name='username' onChange={handleChange} />
+        <input type='password' name='password' onChange={handleChange} />
         <button type='submit'>Log in</button>
       </form>
     </div>

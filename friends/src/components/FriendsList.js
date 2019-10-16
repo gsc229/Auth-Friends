@@ -25,31 +25,13 @@ const FriendsList = props => {
       })
       .catch(err => console.log('FriendsList.js aWA .get err', err));
   };
-  const addFriend = (e, obj) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
-    if (obj.name && obj.email && obj.age) {
-      axiosWithAuth()
-        .post('/api/friends', obj, token)
-        .then(res => {
-          setFriends(res.data);
-          console.log('FriendsList.js via AddFriend.js addFriend() res: ', res);
-        })
-        .catch(err =>
-          console.log('FriendsList.js via AddFriend.js addFriend() res: ', err)
-        );
-    } else alert('All fields required!');
-
-    console.log('FriendsList.js via AddFried.js addFriend() token: ', token);
-    console.log('FriendsList.js via AddFried.js addFriend() obj: ', obj);
-  };
 
   return (
     <div className='friends-list-container'>
       <h1>Fiend's List: </h1>
-      <AddFriend addFriend={addFriend} />
+      <AddFriend setFriends={setFriends} />
       {friends.map(item => (
-        <Friend key={item.id} friend={item} />
+        <Friend key={item.id} setFriends={setFriends} friend={item} />
       ))}
     </div>
   );
